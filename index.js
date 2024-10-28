@@ -15,13 +15,15 @@ let cart = [
 const addProduct = (cart, productId, name, price, quantity) => { cart.push({ productId, name, price, quantity }); return cart; }
 
 const updateQuantity = (cart, productId, quantity) => {
-  cart.forEach(item => ({
-    ...item,
-    quantity: item.productId === productId ? quantity : item.quantity
-  })); return cart;
+  cart.forEach(item => {
+    if (item.productId === productId) {
+      item.quantity = quantity;
+    }
+  })
+  return cart;
 }
 
-const deleteById = (cart, productId) => { const index = cart.findIndex(item => item.productId !== productId); index != -1 && cart.splice(index, 1); }
+const deleteById = (cart, productId) => { const index = cart.findIndex(item => item.productId === productId); index != -1 && cart.splice(index, 1); return cart; }
 
 const getAllItems = cart => cart;
 
