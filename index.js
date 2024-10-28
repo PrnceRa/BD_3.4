@@ -41,7 +41,7 @@ const getTotalPrice = cart => cart.reduce((total, item) => total + item.price * 
 
 app.get('/cart/add', (req, res) => {
   const { productId, name, price, quantity } = req.query;
-  res.json({ cartItems: addProduct(cart, productId, name, price, quantity) });
+  res.json({ cartItems: addProduct(cart, +productId, name, +price, +quantity) });
 });
 
 app.get('/cart/edit', (req, res) => {
