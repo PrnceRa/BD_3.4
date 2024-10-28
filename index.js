@@ -7,10 +7,7 @@ let cors = require('cors');
 
 app.use(cors());
 
-let cart = [
-  { productId: 1, name: 'Laptop', price: 50000, quantity: 1 },
-  { productId: 2, name: 'Mobile', price: 20000, quantity: 2 }
-];
+let cart = [];
 
 const addProduct = (cart, productId, name, price, quantity) => { const product = cart.find(item => item.productId === productId); !product ? cart.push({ productId, name, price, quantity }) : product.quantity += quantity; return cart; }
 
