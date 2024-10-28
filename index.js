@@ -12,46 +12,48 @@ let cart = [
   { productId: 2, name: 'Mobile', price: 20000, quantity: 2 }
 ];
 
-const addProduct = (cart, productId, name, price, quantity) => {cart.push({productId,name,price,quantity}); return cart;}
+const addProduct = (cart, productId, name, price, quantity) => { cart.push({ productId, name, price, quantity }); return cart; }
 
-const updateQuantity = (cart, productId, quantity) => cart.map(item => ({
-  ...item,
-  quantity : item.productId === productId ? quantity : item.quantity
-}))
+const updateQuantity = (cart, productId, quantity) => {
+  cart.forEach(item => ({
+    ...item,
+    quantity: item.productId === productId ? quantity : item.quantity
+  })); return cart;
+}
 
-const deleteById = (cart, productId) => cart.filter(item => item.productId !== productId)
+const deleteById = (cart, productId) => { const index = cart.findIndex(item => item.productId !== productId); index != -1 && cart.splice(index, 1); }
 
 const getAllItems = cart => cart;
 
-const getTotalQuantity = cart => cart.reduce((total , item) => total + item.quantity, 0);
+const getTotalQuantity = cart => cart.reduce((total, item) => total + item.quantity, 0);
 
 const getTotalPrice = cart => cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
 app.get('/cart/add', (req, res) => {
-  const {productId, name, price, quantity} = req.query;
-  res.json({cartItems : addProduct(cart, productId, name, price, quantity)});
+  const { productId, name, price, quantity } = req.query;
+  res.json({ cartItems: addProduct(cart, productId, name, price, quantity) });
 });
 
 app.get('/cart/edit', (req, res) => {
-  const {productId, quantity} = req.query;
-  res.json({cartItems : updateQuantity(cart, +productId, +quantity)});
+  const { productId, quantity } = req.query;
+  res.json({ cartItems: updateQuantity(cart, +productId, +quantity) });
 });
 
 app.get('/cart/delete', (req, res) => {
-  const {productId} = req.query;
-  res.json({cartItems : deleteById(cart, +productId)});
+  const { productId } = req.query;
+  res.json({ cartItems: deleteById(cart, +productId) });
 });
 
 app.get('/cart', (req, res) => {
-  res.json({cartItems : getAllItems(cart)});
+  res.json({ cartItems: getAllItems(cart) });
 });
 
 app.get('/cart/total-quantity', (req, res) => {
-  res.json({totalQuantity : getTotalQuantity(cart)});
+  res.json({ totalQuantity: getTotalQuantity(cart) });
 });
 
 app.get('/cart/total-price', (req, res) => {
-  res.json({totalPrice : getTotalPrice(cart)});
+  res.json({ totalPrice: getTotalPrice(cart) });
 });
 
 app.listen(port, () => {
