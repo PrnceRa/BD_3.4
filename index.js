@@ -12,7 +12,7 @@ let cart = [
   { productId: 2, name: 'Mobile', price: 20000, quantity: 2 }
 ];
 
-const addProduct = (cart, productId, name, price, quantity) => { const product = cart.find(item => item.productId === productId); !product ? cart.push({ productId, name, price, quantity }) : updateQuantity(cart, productId, product.quantity + 1); return cart; }
+const addProduct = (cart, productId, name, price, quantity) => { const product = cart.find(item => item.productId === productId); !product ? cart.push({ productId, name, price, quantity }) : product.quantity += quantity; return cart; }
 
 const updateQuantity = (cart, productId, quantity) => {
   cart.forEach(item => {
