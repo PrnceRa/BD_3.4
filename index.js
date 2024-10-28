@@ -23,9 +23,9 @@ const deleteById = (cart, productId) => cart.filter(item => item.productId !== p
 
 const getAllItems = cart => cart;
 
-const getTotalQuantity = cart => cart.length;
+const getTotalQuantity = cart => cart.reduce((total , item) => total + item.quantity, 0);
 
-const getTotalPrice = cart => cart.reduce((total, item) => total + item.price, 0);
+const getTotalPrice = cart => cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
 app.get('/cart/add', (req, res) => {
   const {productId, name, price, quantity} = req.query;
