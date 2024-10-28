@@ -23,7 +23,15 @@ const updateQuantity = (cart, productId, quantity) => {
   return cart;
 }
 
-const deleteById = (cart, productId) => { const product = cart.find(item => item.productId === productId); if (product !== undefined && product.quantity === 1) { cart = cart.filter(item => item.productId !== productId) } else { product.quantity -= 1 }; return cart; }
+const deleteById = (cart, productId) => {
+  const product = cart.find(item => item.productId === productId); 
+  if (product !== undefined && product.quantity === 1) {
+    const index = cart.indexOf(product);
+    if (index > -1) {
+      cart.splice(index, 1);
+    }
+  } else { product.quantity -= 1 }; return cart;
+}
 
 const getAllItems = cart => cart;
 
