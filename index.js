@@ -23,7 +23,7 @@ const updateQuantity = (cart, productId, quantity) => {
   return cart;
 }
 
-const deleteById = (cart, productId) => { const index = cart.findIndex(item => item.productId === productId); index != -1 && cart.splice(index, 1); return cart; }
+const deleteById = (cart, productId) => { const product = cart.find(item => item.productId === productId); if (product !== undefined && product.quantity === 1) { cart = cart.filter(item => item.productId !== productId) } else { product.quantity -= 1 }; return cart; }
 
 const getAllItems = cart => cart;
 
